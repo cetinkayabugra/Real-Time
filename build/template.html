@@ -1,0 +1,684 @@
+<style>
+  @font-face{
+    font-family:'Big Shoulders Display';
+    font-style:normal; font-weight:700; font-display:swap;
+    src:url(data:font/woff2;base64,__BSD700__) format('woff2');
+  }
+  @font-face{
+    font-family:'IBM Plex Sans';
+    font-style:normal; font-weight:400 600; font-display:swap;
+    src:url(data:font/woff2;base64,__PLEXSANS__) format('woff2');
+  }
+  @font-face{
+    font-family:'IBM Plex Mono';
+    font-style:normal; font-weight:400; font-display:swap;
+    src:url(data:font/woff2;base64,__PLEXMONO400__) format('woff2');
+  }
+  @font-face{
+    font-family:'IBM Plex Mono';
+    font-style:normal; font-weight:500; font-display:swap;
+    src:url(data:font/woff2;base64,__PLEXMONO500__) format('woff2');
+  }
+
+  #relay-root{
+    --bg:#EFF2F5; --surface:#FFFFFF; --surface-2:#E4E9EE;
+    --text:#121820; --text-muted:#5B6672; --border:#D6DCE2;
+    --accent:#B85C2C; --accent-bg:#F3E2D3; --accent-ink:#7A3D1B;
+    --good:#2F8F63; --good-bg:#E1F1E8;
+    --warn:#B8781E; --warn-bg:#FBEDD8;
+    --bad:#C2453C; --bad-bg:#FBE4E1;
+    --info:#4C6FA8; --info-bg:#E4EAF5;
+    --shadow:0 1px 2px rgba(18,24,32,0.06), 0 8px 24px -16px rgba(18,24,32,0.18);
+
+    --font-display:'Big Shoulders Display', ui-sans-serif, system-ui, sans-serif;
+    --font-body:'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark){
+    #relay-root{
+      --bg:#0C1015; --surface:#131822; --surface-2:#1B212C;
+      --text:#E8EBEF; --text-muted:#8B95A1; --border:#262E3A;
+      --accent:#E08A4F; --accent-bg:#3A2A1E; --accent-ink:#F2C49B;
+      --good:#5BC28C; --good-bg:#16261E;
+      --warn:#E3A94A; --warn-bg:#2E2517;
+      --bad:#E37368; --bad-bg:#301C1A;
+      --info:#87A3D8; --info-bg:#1B2536;
+      --shadow:0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -16px rgba(0,0,0,0.6);
+    }
+  }
+  #relay-root[data-theme="dark"]{
+    --bg:#0C1015; --surface:#131822; --surface-2:#1B212C;
+    --text:#E8EBEF; --text-muted:#8B95A1; --border:#262E3A;
+    --accent:#E08A4F; --accent-bg:#3A2A1E; --accent-ink:#F2C49B;
+    --good:#5BC28C; --good-bg:#16261E;
+    --warn:#E3A94A; --warn-bg:#2E2517;
+    --bad:#E37368; --bad-bg:#301C1A;
+    --info:#87A3D8; --info-bg:#1B2536;
+  }
+  #relay-root[data-theme="light"]{
+    --bg:#EFF2F5; --surface:#FFFFFF; --surface-2:#E4E9EE;
+    --text:#121820; --text-muted:#5B6672; --border:#D6DCE2;
+    --accent:#B85C2C; --accent-bg:#F3E2D3; --accent-ink:#7A3D1B;
+    --good:#2F8F63; --good-bg:#E1F1E8;
+    --warn:#B8781E; --warn-bg:#FBEDD8;
+    --bad:#C2453C; --bad-bg:#FBE4E1;
+    --info:#4C6FA8; --info-bg:#E4EAF5;
+  }
+
+  #relay-root{
+    background:var(--bg); color:var(--text);
+    font-family:var(--font-body);
+    font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  #relay-root *{ box-sizing:border-box; }
+  #relay-root .wrap{
+    max-width:1320px; margin:0 auto; padding:20px 24px 64px;
+  }
+  #relay-root a{ color:inherit; }
+  #relay-root .rule{
+    height:2px; background:linear-gradient(90deg, var(--accent), transparent 70%);
+    border-radius:2px; margin-bottom:22px;
+  }
+
+  /* ---- header ---- */
+  #relay-root .topbar{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:16px 28px; margin-bottom:8px;
+  }
+  #relay-root .brand{ display:flex; align-items:baseline; gap:12px; }
+  #relay-root .wordmark{
+    font-family:var(--font-display); font-weight:700;
+    font-size:2.6rem; line-height:1; letter-spacing:0.01em;
+    text-wrap:balance;
+  }
+  #relay-root .tagline{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--text-muted); padding-bottom:0.35rem;
+  }
+  #relay-root .topbar-meta{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted);
+  }
+  #relay-root .sample-badge{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--warn); border:1px solid var(--warn);
+    background:var(--warn-bg); padding:3px 8px; border-radius:4px;
+  }
+  #relay-root .overall-chip{
+    display:inline-flex; align-items:center; gap:7px;
+    background:var(--surface); border:1px solid var(--border);
+    padding:5px 10px 5px 8px; border-radius:20px;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--text);
+  }
+  #relay-root .dot{
+    width:8px; height:8px; border-radius:50%; flex:none;
+  }
+  #relay-root .dot.good{ background:var(--good); }
+  #relay-root .dot.warn{ background:var(--warn); }
+  #relay-root .dot.bad{ background:var(--bad); }
+  #relay-root .dot.info{ background:var(--info); }
+
+  #relay-root .controls-row{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:12px; margin:18px 0 22px;
+  }
+  #relay-root .range-toggle{
+    display:inline-flex; border:1px solid var(--border); border-radius:7px;
+    overflow:hidden; background:var(--surface);
+  }
+  #relay-root .range-toggle button{
+    font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.03em;
+    padding:7px 14px; background:transparent; border:0; color:var(--text-muted);
+    cursor:pointer; border-right:1px solid var(--border);
+  }
+  #relay-root .range-toggle button:last-child{ border-right:0; }
+  #relay-root .range-toggle button.active{
+    background:var(--accent); color:#fff;
+  }
+  #relay-root .range-toggle button:focus-visible,
+  #relay-root button:focus-visible,
+  #relay-root input:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+  #relay-root .subtext{
+    color:var(--text-muted); font-size:0.85rem; max-width:52ch;
+  }
+
+  /* ---- layout ---- */
+  #relay-root .board{
+    display:grid; grid-template-columns:minmax(0,1fr) 348px; gap:22px;
+    align-items:start;
+  }
+  @media (max-width:920px){
+    #relay-root .board{ grid-template-columns:1fr; }
+  }
+  #relay-root .cards{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(272px,1fr));
+    gap:14px;
+  }
+
+  /* ---- provider card ---- */
+  #relay-root .card{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; overflow:hidden; box-shadow:var(--shadow);
+    display:flex; flex-direction:column;
+  }
+  #relay-root .card .stripe{ height:3px; }
+  #relay-root .card .stripe.good{ background:var(--good); }
+  #relay-root .card .stripe.warn{ background:var(--warn); }
+  #relay-root .card .stripe.bad{ background:var(--bad); }
+  #relay-root .card-body{ padding:14px 16px 16px; }
+  #relay-root .card-head{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
+    margin-bottom:10px;
+  }
+  #relay-root .provider-name{ font-weight:600; font-size:0.98rem; }
+  #relay-root .provider-model{
+    font-size:0.74rem; color:var(--text-muted); margin-top:1px;
+  }
+  #relay-root .status-pill{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.05em;
+    text-transform:uppercase; padding:3px 8px 3px 6px; border-radius:20px;
+    white-space:nowrap;
+  }
+  #relay-root .status-pill.good{ background:var(--good-bg); color:var(--good); }
+  #relay-root .status-pill.warn{ background:var(--warn-bg); color:var(--warn); }
+  #relay-root .status-pill.bad{ background:var(--bad-bg); color:var(--bad); }
+
+  #relay-root .metric-row{
+    display:flex; align-items:baseline; gap:8px; margin-bottom:2px;
+  }
+  #relay-root .metric-big{
+    font-family:var(--font-display); font-weight:700; font-size:2.3rem;
+    line-height:1; font-variant-numeric:tabular-nums;
+  }
+  #relay-root .metric-unit{
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted);
+  }
+  #relay-root .metric-label{
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;
+  }
+  #relay-root .p95-note{
+    font-family:var(--font-mono); font-size:0.74rem; color:var(--text-muted);
+    margin-bottom:10px;
+  }
+  #relay-root .p95-note b{ color:var(--text); font-weight:500; }
+
+  #relay-root canvas.spark{ display:block; width:100%; height:40px; margin-bottom:10px; }
+
+  #relay-root .stat-strip{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:6px;
+    border-top:1px solid var(--border); padding-top:10px;
+  }
+  #relay-root .stat{ display:flex; flex-direction:column; gap:1px; }
+  #relay-root .stat .k{
+    font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--text-muted);
+  }
+  #relay-root .stat .v{
+    font-family:var(--font-mono); font-size:0.86rem; font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  #relay-root .incident-note{
+    margin-top:10px; padding:8px 10px; border-radius:6px;
+    background:var(--warn-bg); color:var(--warn);
+    font-size:0.76rem; line-height:1.4; display:flex; gap:7px;
+  }
+  #relay-root .incident-note.resolved{ background:var(--info-bg); color:var(--info); }
+
+  /* ---- sidebar ---- */
+  #relay-root aside .panel{
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    box-shadow:var(--shadow); padding:16px 16px 18px; margin-bottom:18px;
+  }
+  #relay-root .panel h2{
+    font-family:var(--font-display); font-weight:700; font-size:1.15rem;
+    margin:0 0 3px; letter-spacing:0.01em;
+  }
+  #relay-root .panel .panel-sub{
+    font-size:0.78rem; color:var(--text-muted); margin-bottom:14px; max-width:40ch;
+  }
+
+  #relay-root .weight{ margin-bottom:12px; }
+  #relay-root .weight-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:0.72rem; margin-bottom:5px;
+  }
+  #relay-root .weight-head span:first-child{
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted);
+  }
+  #relay-root .weight-head span:last-child{ font-weight:500; }
+  #relay-root input[type="range"]{
+    -webkit-appearance:none; appearance:none; width:100%; height:4px;
+    background:var(--surface-2); border-radius:3px; outline-offset:4px;
+  }
+  #relay-root input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+    background:var(--accent); border:2px solid var(--surface); cursor:pointer;
+    box-shadow:0 0 0 1px var(--accent);
+  }
+  #relay-root input[type="range"]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; background:var(--accent);
+    border:2px solid var(--surface); cursor:pointer; box-shadow:0 0 0 1px var(--accent);
+  }
+
+  #relay-root .rank-list{ list-style:none; margin:14px 0 0; padding:0; }
+  #relay-root .rank-row{
+    display:flex; gap:10px; padding:9px 0; border-top:1px solid var(--border);
+  }
+  #relay-root .rank-row:first-child{ border-top:1px solid var(--border); }
+  #relay-root .rank-num{
+    font-family:var(--font-mono); font-size:0.85rem; color:var(--text-muted);
+    width:1.4em; flex:none; padding-top:1px;
+  }
+  #relay-root .rank-main{ flex:1; min-width:0; }
+  #relay-root .rank-top{
+    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:4px;
+  }
+  #relay-root .rank-name{ font-weight:600; font-size:0.86rem; }
+  #relay-root .rank-badge{
+    font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.06em;
+    text-transform:uppercase; padding:2px 6px; border-radius:4px; white-space:nowrap; flex:none;
+  }
+  #relay-root .rank-badge.primary{ background:var(--accent); color:#fff; }
+  #relay-root .rank-badge.failover{ background:var(--accent-bg); color:var(--accent-ink); }
+  #relay-root .rank-badge.avoid{ background:var(--bad-bg); color:var(--bad); }
+  #relay-root .score-track{
+    height:5px; background:var(--surface-2); border-radius:3px; overflow:hidden; margin-bottom:5px;
+  }
+  #relay-root .score-fill{ height:100%; background:var(--accent); border-radius:3px; }
+  #relay-root .rank-reason{ font-size:0.76rem; color:var(--text-muted); line-height:1.4; }
+
+  #relay-root .incident-list{ list-style:none; margin:0; padding:0; }
+  #relay-root .incident-item{
+    display:flex; gap:9px; padding:10px 0; border-top:1px solid var(--border);
+  }
+  #relay-root .incident-item:first-child{ border-top:1px solid var(--border); }
+  #relay-root .incident-item .dot{ margin-top:6px; }
+  #relay-root .incident-body{ flex:1; min-width:0; }
+  #relay-root .incident-top{
+    display:flex; justify-content:space-between; gap:8px; align-items:baseline; margin-bottom:2px;
+  }
+  #relay-root .incident-provider{ font-weight:600; font-size:0.8rem; }
+  #relay-root .incident-time{
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); white-space:nowrap;
+  }
+  #relay-root .incident-desc{ font-size:0.78rem; color:var(--text-muted); line-height:1.45; }
+
+  #relay-root .footnote{
+    margin-top:26px; padding-top:16px; border-top:1px solid var(--border);
+    font-size:0.78rem; color:var(--text-muted); display:flex; justify-content:space-between;
+    gap:16px; flex-wrap:wrap;
+  }
+  #relay-root .footnote code{
+    font-family:var(--font-mono); background:var(--surface-2); padding:1px 5px; border-radius:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #relay-root *{ transition:none !important; animation:none !important; }
+  }
+  #relay-root .score-fill, #relay-root .metric-big{ transition:width 0.35s ease; }
+</style>
+
+<div id="relay-root">
+  <div class="wrap">
+    <div class="rule"></div>
+
+    <div class="topbar">
+      <div class="brand">
+        <span class="wordmark">RELAY</span>
+        <span class="tagline">Provider Observability</span>
+      </div>
+      <div class="topbar-meta">
+        <span class="overall-chip" id="overallChip"><span class="dot good"></span>5 / 6 operational</span>
+        <span>Updated Aug 5, 2026 &middot; 14:32 UTC</span>
+        <span class="sample-badge">Sample data &mdash; design review</span>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <p class="subtext">Time-to-first-token, uptime, and error rate across model providers, plus a live-recomputed failover ranking. Adjust the weights on the right to see the recommendation change.</p>
+      <div class="range-toggle" role="group" aria-label="Time range">
+        <button type="button" data-range="24h" class="active">24H</button>
+        <button type="button" data-range="7d">7D</button>
+        <button type="button" data-range="30d">30D</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <main class="cards" id="cardGrid"></main>
+
+      <aside>
+        <div class="panel">
+          <h2>Failover ranking</h2>
+          <p class="panel-sub">Score blends latency, uptime, and error rate at the weights below. Providers with an open incident are held back regardless of score.</p>
+
+          <div class="weight" data-weight="latency">
+            <div class="weight-head"><span>Latency</span><span class="wval">34%</span></div>
+            <input type="range" min="0" max="100" value="34" aria-label="Latency weight">
+          </div>
+          <div class="weight" data-weight="uptime">
+            <div class="weight-head"><span>Uptime</span><span class="wval">34%</span></div>
+            <input type="range" min="0" max="100" value="34" aria-label="Uptime weight">
+          </div>
+          <div class="weight" data-weight="error">
+            <div class="weight-head"><span>Error rate</span><span class="wval">32%</span></div>
+            <input type="range" min="0" max="100" value="32" aria-label="Error rate weight">
+          </div>
+
+          <ol class="rank-list" id="rankList"></ol>
+        </div>
+
+        <div class="panel">
+          <h2>Incident log</h2>
+          <p class="panel-sub">Most recent first, across all providers.</p>
+          <ul class="incident-list" id="incidentList"></ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footnote">
+      <span>Ranking recomputes client-side from the metrics shown &mdash; nothing here is fetched live yet.</span>
+      <span>Next: wire <code>/status</code> pollers + provider API probes.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('relay-root');
+
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function series(seed, points, baseline, volatility){
+    var rnd = mulberry32(seed);
+    var out = []; var v = baseline;
+    for (var i = 0; i < points; i++){
+      v += (rnd() - 0.5) * volatility;
+      v = Math.max(baseline * 0.55, v);
+      out.push(Math.round(v));
+    }
+    out[out.length - 1] = Math.round(baseline);
+    return out;
+  }
+
+  var RANGES = {
+    '24h': { points: 24, label: '24h' },
+    '7d':  { points: 28, label: '7d' },
+    '30d': { points: 30, label: '30d' }
+  };
+
+  var PROVIDERS = [
+    { id:'anthropic', name:'Anthropic', model:'Claude 4.5 family', seed:210,
+      byRange:{
+        '24h':{status:'good', p50:375, p95:745, uptime:99.98, error:0.08},
+        '7d': {status:'good', p50:380, p95:760, uptime:99.97, error:0.10},
+        '30d':{status:'good', p50:385, p95:770, uptime:99.97, error:0.11}
+      }, incident:null },
+
+    { id:'openai', name:'OpenAI', model:'GPT-5.1 family', seed:110,
+      byRange:{
+        '24h':{status:'good', p50:410, p95:860, uptime:99.94, error:0.21},
+        '7d': {status:'good', p50:425, p95:880, uptime:99.96, error:0.16},
+        '30d':{status:'good', p50:430, p95:900, uptime:99.97, error:0.14}
+      }, incident:null },
+
+    { id:'mistral', name:'Mistral AI', model:'Large 3 family', seed:410,
+      byRange:{
+        '24h':{status:'good', p50:335, p95:690, uptime:99.95, error:0.13},
+        '7d': {status:'good', p50:345, p95:705, uptime:99.94, error:0.15},
+        '30d':{status:'good', p50:350, p95:715, uptime:99.93, error:0.16}
+      }, incident:null },
+
+    { id:'bedrock', name:'Amazon Bedrock', model:'Multi-model gateway', seed:610,
+      byRange:{
+        '24h':{status:'good', p50:505, p95:1080, uptime:99.83, error:0.31},
+        '7d': {status:'good', p50:495, p95:1050, uptime:99.90, error:0.22},
+        '30d':{status:'good', p50:500, p95:1060, uptime:99.92, error:0.19}
+      }, incident:{ severity:'resolved', text:'Partial outage 03:02–03:13 UTC — resolved, 11 min.' } },
+
+    { id:'cohere', name:'Cohere', model:'Command R+ family', seed:510,
+      byRange:{
+        '24h':{status:'good', p50:465, p95:930, uptime:99.90, error:0.24},
+        '7d': {status:'good', p50:470, p95:940, uptime:99.91, error:0.23},
+        '30d':{status:'good', p50:475, p95:950, uptime:99.92, error:0.21}
+      }, incident:null },
+
+    { id:'google', name:'Google', model:'Gemini 2.5 family', seed:310,
+      byRange:{
+        '24h':{status:'warn', p50:615, p95:1460, uptime:99.71, error:0.52},
+        '7d': {status:'good', p50:540, p95:1180, uptime:99.88, error:0.29},
+        '30d':{status:'good', p50:520, p95:1120, uptime:99.90, error:0.24}
+      }, incident:{ severity:'open', text:'Elevated TTFT on gemini-2.5-pro (p95 +340ms). Investigating since 09:14 UTC.' } }
+  ];
+
+  var INCIDENTS = [
+    { time:'Aug 5, 09:14 UTC', provider:'Google', sev:'warn', text:'Elevated time-to-first-token on gemini-2.5-pro, p95 +340ms. Investigating.' },
+    { time:'Aug 5, 03:13 UTC', provider:'Amazon Bedrock', sev:'info', text:'Partial outage resolved. Claude & Titan endpoints returned 503s for 11 min.' },
+    { time:'Aug 5, 03:02 UTC', provider:'Amazon Bedrock', sev:'bad', text:'Partial outage: elevated 5xx on the us-east-1 endpoint group.' },
+    { time:'Aug 4, 22:47 UTC', provider:'OpenAI', sev:'warn', text:'Brief error-rate spike on the gpt-5.1-turbo tier, resolved in 4 min.' },
+    { time:'Aug 3, 16:20 UTC', provider:'Cohere', sev:'info', text:'Scheduled maintenance on command-r endpoints. No downtime.' }
+  ];
+
+  var state = { range:'24h', weights:{ latency:34, uptime:34, error:32 } };
+
+  function fmtPct(n){ return n.toFixed(2) + '%'; }
+  function statusLabel(s){ return s === 'good' ? 'Operational' : s === 'warn' ? 'Degraded' : 'Outage'; }
+
+  function computeScores(range){
+    var rows = PROVIDERS.map(function(p){ return { p:p, m:p.byRange[range] }; });
+    var p50s = rows.map(function(r){ return r.m.p50; });
+    var errs = rows.map(function(r){ return r.m.error; });
+    var ups  = rows.map(function(r){ return r.m.uptime; });
+    var minP = Math.min.apply(null, p50s), maxP = Math.max.apply(null, p50s);
+    var minE = Math.min.apply(null, errs), maxE = Math.max.apply(null, errs);
+    var minU = Math.min.apply(null, ups),  maxU = Math.max.apply(null, ups);
+
+    var wl = state.weights.latency, wu = state.weights.uptime, we = state.weights.error;
+    var wsum = Math.max(1, wl + wu + we);
+
+    rows.forEach(function(r){
+      var normLatency = maxP === minP ? 1 : 1 - (r.m.p50 - minP) / (maxP - minP);
+      var normError   = maxE === minE ? 1 : 1 - (r.m.error - minE) / (maxE - minE);
+      var normUptime  = maxU === minU ? 1 : (r.m.uptime - minU) / (maxU - minU);
+      var score = (normLatency * wl + normUptime * wu + normError * we) / wsum;
+      r.score = Math.round(score * 100);
+    });
+
+    rows.sort(function(a, b){ return b.score - a.score; });
+    return rows;
+  }
+
+  function drawSpark(canvas, data, colorVar){
+    var dpr = window.devicePixelRatio || 1;
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, h);
+
+    var styles = getComputedStyle(root);
+    var line = styles.getPropertyValue(colorVar).trim();
+    var grid = styles.getPropertyValue('--border').trim();
+
+    var min = Math.min.apply(null, data), max = Math.max.apply(null, data);
+    var pad = 4;
+    var range = (max - min) || 1;
+    function x(i){ return (i / (data.length - 1)) * (w - pad * 2) + pad; }
+    function y(v){ return h - pad - ((v - min) / range) * (h - pad * 2); }
+
+    ctx.strokeStyle = grid; ctx.lineWidth = 1; ctx.globalAlpha = 0.6;
+    [0.5].forEach(function(f){
+      ctx.beginPath(); ctx.moveTo(0, h * f); ctx.lineTo(w, h * f); ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+
+    ctx.beginPath();
+    data.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+    ctx.lineTo(x(data.length - 1), h); ctx.lineTo(x(0), h); ctx.closePath();
+    var grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, line + '55'); grad.addColorStop(1, line + '00');
+    ctx.fillStyle = grad; ctx.fill();
+
+    ctx.beginPath();
+    data.forEach(function(v, i){ i === 0 ? ctx.moveTo(x(i), y(v)) : ctx.lineTo(x(i), y(v)); });
+    ctx.strokeStyle = line; ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x(data.length - 1), y(data[data.length - 1]), 2.6, 0, Math.PI * 2);
+    ctx.fillStyle = line; ctx.fill();
+  }
+
+  function renderCards(){
+    var grid = document.getElementById('cardGrid');
+    grid.innerHTML = '';
+    var rangeCfg = RANGES[state.range];
+    var scored = computeScores(state.range);
+    var scoreById = {}; scored.forEach(function(r){ scoreById[r.p.id] = r.score; });
+
+    PROVIDERS.forEach(function(p){
+      var m = p.byRange[state.range];
+      var card = document.createElement('div');
+      card.className = 'card';
+
+      var showIncident = p.incident && (state.range === '24h' || p.incident.severity === 'resolved' && state.range !== '24h' ? false : true);
+      var incidentHtml = '';
+      if (p.incident && state.range === '24h'){
+        var isResolved = p.incident.severity === 'resolved';
+        incidentHtml = '<div class="incident-note' + (isResolved ? ' resolved' : '') + '">' +
+          '<span>' + (isResolved ? '●' : '▲') + '</span><span>' + p.incident.text + '</span></div>';
+      }
+
+      var colorVar = m.status === 'good' ? '--good' : m.status === 'warn' ? '--warn' : '--bad';
+
+      card.innerHTML =
+        '<div class="stripe ' + m.status + '"></div>' +
+        '<div class="card-body">' +
+          '<div class="card-head">' +
+            '<div><div class="provider-name">' + p.name + '</div><div class="provider-model">' + p.model + '</div></div>' +
+            '<span class="status-pill ' + m.status + '"><span class="dot ' + m.status + '"></span>' + statusLabel(m.status) + '</span>' +
+          '</div>' +
+          '<div class="metric-label">Time to first token &middot; p50</div>' +
+          '<div class="metric-row"><span class="metric-big">' + m.p50 + '</span><span class="metric-unit">ms</span></div>' +
+          '<div class="p95-note">p95 <b>' + m.p95 + 'ms</b> &middot; ' + rangeCfg.label + ' trend</div>' +
+          '<canvas class="spark" data-color="' + colorVar + '"></canvas>' +
+          '<div class="stat-strip">' +
+            '<div class="stat"><span class="k">Uptime</span><span class="v">' + fmtPct(m.uptime) + '</span></div>' +
+            '<div class="stat"><span class="k">Errors</span><span class="v">' + fmtPct(m.error) + '</span></div>' +
+            '<div class="stat"><span class="k">Score</span><span class="v">' + scoreById[p.id] + '</span></div>' +
+          '</div>' +
+          incidentHtml +
+        '</div>';
+
+      grid.appendChild(card);
+      var canvas = card.querySelector('canvas');
+      var data = series(p.seed + state.range.length, rangeCfg.points, m.p50, m.p50 * 0.18);
+      drawSpark(canvas, data, canvas.getAttribute('data-color'));
+    });
+
+    var goodCount = PROVIDERS.filter(function(p){ return p.byRange[state.range].status === 'good'; }).length;
+    document.getElementById('overallChip').innerHTML =
+      '<span class="dot ' + (goodCount === PROVIDERS.length ? 'good' : 'warn') + '"></span>' +
+      goodCount + ' / ' + PROVIDERS.length + ' operational';
+  }
+
+  function renderRanking(){
+    var list = document.getElementById('rankList');
+    list.innerHTML = '';
+    var scored = computeScores(state.range);
+    var maxScore = scored[0].score || 1;
+
+    scored.forEach(function(row, idx){
+      var p = row.p, m = row.m;
+      var hasOpenIncident = p.incident && p.incident.severity === 'open' && state.range === '24h';
+      var badge = '';
+      if (hasOpenIncident){
+        badge = '<span class="rank-badge avoid">Avoid</span>';
+      } else if (idx === 0){
+        badge = '<span class="rank-badge primary">Primary</span>';
+      } else if (idx === 1){
+        badge = '<span class="rank-badge failover">Failover</span>';
+      }
+
+      var reason;
+      if (hasOpenIncident){
+        reason = 'Open incident in range — held back until resolved, regardless of score.';
+      } else if (idx === 0){
+        reason = fmtPct(m.uptime) + ' uptime, ' + fmtPct(m.error) + ' errors, ' + m.p50 + 'ms p50 — top score at current weights.';
+      } else if (idx === 1){
+        reason = 'Within ' + (maxScore - row.score) + ' pts of the top score — close enough for automatic failover.';
+      } else {
+        reason = 'Solid metrics, not top-ranked at current weights.';
+      }
+
+      var li = document.createElement('li');
+      li.className = 'rank-row';
+      li.innerHTML =
+        '<span class="rank-num">' + (idx + 1) + '</span>' +
+        '<div class="rank-main">' +
+          '<div class="rank-top"><span class="rank-name">' + p.name + '</span>' + badge + '</div>' +
+          '<div class="score-track"><div class="score-fill" style="width:' + row.score + '%"></div></div>' +
+          '<div class="rank-reason">' + reason + '</div>' +
+        '</div>';
+      list.appendChild(li);
+    });
+  }
+
+  function renderIncidents(){
+    var list = document.getElementById('incidentList');
+    list.innerHTML = '';
+    INCIDENTS.forEach(function(item){
+      var li = document.createElement('li');
+      li.className = 'incident-item';
+      li.innerHTML =
+        '<span class="dot ' + item.sev + '"></span>' +
+        '<div class="incident-body">' +
+          '<div class="incident-top"><span class="incident-provider">' + item.provider + '</span><span class="incident-time">' + item.time + '</span></div>' +
+          '<div class="incident-desc">' + item.text + '</div>' +
+        '</div>';
+      list.appendChild(li);
+    });
+  }
+
+  function renderAll(){ renderCards(); renderRanking(); }
+
+  document.querySelectorAll('.range-toggle button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.range-toggle button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.range = btn.getAttribute('data-range');
+      renderAll();
+    });
+  });
+
+  document.querySelectorAll('.weight input[type="range"]').forEach(function(input){
+    input.addEventListener('input', function(){
+      var key = input.closest('.weight').getAttribute('data-weight');
+      state.weights[key] = parseInt(input.value, 10);
+      var total = state.weights.latency + state.weights.uptime + state.weights.error || 1;
+      document.querySelectorAll('.weight').forEach(function(w){
+        var k = w.getAttribute('data-weight');
+        var pct = Math.round((state.weights[k] / total) * 100);
+        w.querySelector('.wval').textContent = pct + '%';
+      });
+      renderRanking();
+    });
+  });
+
+  renderIncidents();
+  renderAll();
+  window.addEventListener('resize', renderCards);
+})();
+</script>
