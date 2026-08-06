@@ -1,0 +1,43 @@
+name: Poll provider status
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Serialize runs rather than letting a slow run overlap the next scheduled one
+# and race on the git push below.
+concurrency:
+  group: poll-provider-status
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run pollers
+        run: node poll/run.js
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(data): poll provider status [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

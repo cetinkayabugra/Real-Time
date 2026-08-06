@@ -253,7 +253,14 @@
     font-size:0.78rem; color:var(--text-muted); margin-bottom:14px; max-width:40ch;
   }
 
-  #relay-root .weight{ margin-bottom:12px; }
+  #relay-root .weight{ margin-bottom:12px; transition:opacity 0.2s ease; }
+  #relay-root .weight.inactive{ opacity:0.4; }
+  #relay-root .weight.inactive input[type="range"]{ cursor:not-allowed; }
+  #relay-root .stat .v.dim{ color:var(--text-muted); font-weight:400; }
+  #relay-root .stat .sub{
+    font-family:var(--font-mono); font-size:0.6rem; color:var(--text-muted);
+  }
+  #relay-root .metric-label .live-tag{ color:var(--text-muted); text-transform:none; letter-spacing:0; }
   #relay-root .weight-head{
     display:flex; justify-content:space-between; align-items:baseline;
     font-family:var(--font-mono); font-size:0.72rem; margin-bottom:5px;
@@ -345,13 +352,13 @@
       </div>
       <div class="topbar-meta">
         <span class="overall-chip" id="overallChip"><span class="dot good"></span>5 / 6 operational</span>
-        <span>Updated Aug 5, 2026 &middot; 14:32 UTC</span>
-        <span class="sample-badge">Sample data &mdash; design review</span>
+        <span id="updatedStamp">Updated Aug 5, 2026 &middot; 14:32 UTC</span>
+        <span class="sample-badge" id="dataSourceBadge">Sample data &mdash; design review</span>
       </div>
     </div>
 
     <div class="controls-row">
-      <p class="subtext">Time-to-first-token, uptime, and error rate across model providers, plus a live-recomputed failover ranking. Adjust the weights on the right to see the recommendation change.</p>
+      <p class="subtext" id="subtext">Time-to-first-token, uptime, and error rate across model providers, plus a live-recomputed failover ranking. Adjust the weights on the right to see the recommendation change.</p>
       <div class="range-toggle" role="group" aria-label="Time range">
         <button type="button" data-range="24h" class="active">24H</button>
         <button type="button" data-range="7d">7D</button>
@@ -365,7 +372,7 @@
       <aside>
         <div class="panel">
           <h2>Failover ranking</h2>
-          <p class="panel-sub">Score blends latency, uptime, and error rate at the weights below. Providers with an open incident are held back regardless of score.</p>
+          <p class="panel-sub" id="rankingSub">Score blends latency, uptime, and error rate at the weights below. Providers with an open incident are held back regardless of score.</p>
 
           <div class="weight" data-weight="latency">
             <div class="weight-head"><span>Latency</span><span class="wval">34%</span></div>
@@ -392,8 +399,8 @@
     </div>
 
     <div class="footnote">
-      <span>Ranking recomputes client-side from the metrics shown &mdash; nothing here is fetched live yet.</span>
-      <span>Next: wire <code>/status</code> pollers + provider API probes.</span>
+      <span id="footnoteMain">Ranking recomputes client-side from the metrics shown &mdash; nothing here is fetched live yet.</span>
+      <span id="footnoteNext">Next: wire <code>/status</code> pollers + provider API probes.</span>
     </div>
   </div>
 </div>
@@ -482,29 +489,72 @@
   ];
 
   var state = { range:'24h', weights:{ latency:34, uptime:34, error:32 } };
+  var liveData = null; // populated by loadLiveData(); null = fall back to sample data throughout
 
   function fmtPct(n){ return n.toFixed(2) + '%'; }
   function statusLabel(s){ return s === 'good' ? 'Operational' : s === 'warn' ? 'Degraded' : 'Outage'; }
+  function isLive(){ return !!liveData; }
+
+  function liveProvider(id){
+    return liveData && liveData.providers ? liveData.providers[id] : null;
+  }
+
+  // Blends mock metrics (always used for latency/error — Phase 1 has no live
+  // source for those) with live status+uptime when available. A provider
+  // whose probe failed this run keeps its mock/last-known status rather than
+  // silently reverting to sample numbers.
+  function effectiveMetrics(p, range){
+    var m = p.byRange[range];
+    var live = liveProvider(p.id);
+    var liveUptime = live && live.uptime ? live.uptime[range] : null;
+    return {
+      p50: m.p50, p95: m.p95, error: m.error,
+      status: live ? live.status : m.status,
+      uptime: liveUptime ? liveUptime.pct : m.uptime,
+      uptimeSamples: liveUptime ? liveUptime.sampleCount : null,
+      liveUptime: !!liveUptime
+    };
+  }
+
+  function hasOpenIncident(p){
+    if (isLive()){
+      return (liveData.incidents || []).some(function(i){ return i.providerId === p.id && !i.resolvedAt; });
+    }
+    return !!(p.incident && p.incident.severity === 'open' && state.range === '24h');
+  }
 
   function computeScores(range){
-    var rows = PROVIDERS.map(function(p){ return { p:p, m:p.byRange[range] }; });
-    var p50s = rows.map(function(r){ return r.m.p50; });
-    var errs = rows.map(function(r){ return r.m.error; });
-    var ups  = rows.map(function(r){ return r.m.uptime; });
-    var minP = Math.min.apply(null, p50s), maxP = Math.max.apply(null, p50s);
-    var minE = Math.min.apply(null, errs), maxE = Math.max.apply(null, errs);
-    var minU = Math.min.apply(null, ups),  maxU = Math.max.apply(null, ups);
+    var rows = PROVIDERS.map(function(p){ return { p:p, m:effectiveMetrics(p, range) }; });
 
-    var wl = state.weights.latency, wu = state.weights.uptime, we = state.weights.error;
-    var wsum = Math.max(1, wl + wu + we);
+    if (isLive()){
+      // Live mode only has one trustworthy signal (uptime) plus the incident
+      // override below — blending it with mock latency/error into one score
+      // would look precise while being partly fake, so the sliders sit out.
+      var ups = rows.map(function(r){ return r.m.uptime; });
+      var minU = Math.min.apply(null, ups), maxU = Math.max.apply(null, ups);
+      rows.forEach(function(r){
+        var normUptime = maxU === minU ? 1 : (r.m.uptime - minU) / (maxU - minU);
+        r.score = Math.round(normUptime * 100);
+      });
+    } else {
+      var p50s = rows.map(function(r){ return r.m.p50; });
+      var errs = rows.map(function(r){ return r.m.error; });
+      var ups2 = rows.map(function(r){ return r.m.uptime; });
+      var minP = Math.min.apply(null, p50s), maxP = Math.max.apply(null, p50s);
+      var minE = Math.min.apply(null, errs), maxE = Math.max.apply(null, errs);
+      var minU2 = Math.min.apply(null, ups2), maxU2 = Math.max.apply(null, ups2);
 
-    rows.forEach(function(r){
-      var normLatency = maxP === minP ? 1 : 1 - (r.m.p50 - minP) / (maxP - minP);
-      var normError   = maxE === minE ? 1 : 1 - (r.m.error - minE) / (maxE - minE);
-      var normUptime  = maxU === minU ? 1 : (r.m.uptime - minU) / (maxU - minU);
-      var score = (normLatency * wl + normUptime * wu + normError * we) / wsum;
-      r.score = Math.round(score * 100);
-    });
+      var wl = state.weights.latency, wu = state.weights.uptime, we = state.weights.error;
+      var wsum = Math.max(1, wl + wu + we);
+
+      rows.forEach(function(r){
+        var normLatency = maxP === minP ? 1 : 1 - (r.m.p50 - minP) / (maxP - minP);
+        var normError   = maxE === minE ? 1 : 1 - (r.m.error - minE) / (maxE - minE);
+        var normUptime  = maxU2 === minU2 ? 1 : (r.m.uptime - minU2) / (maxU2 - minU2);
+        var score = (normLatency * wl + normUptime * wu + normError * we) / wsum;
+        r.score = Math.round(score * 100);
+      });
+    }
 
     rows.sort(function(a, b){ return b.score - a.score; });
     return rows;
@@ -558,19 +608,29 @@
     var scoreById = {}; scored.forEach(function(r){ scoreById[r.p.id] = r.score; });
 
     PROVIDERS.forEach(function(p){
-      var m = p.byRange[state.range];
+      var m = effectiveMetrics(p, state.range);
       var card = document.createElement('div');
       card.className = 'card';
 
-      var showIncident = p.incident && (state.range === '24h' || p.incident.severity === 'resolved' && state.range !== '24h' ? false : true);
       var incidentHtml = '';
-      if (p.incident && state.range === '24h'){
+      if (isLive()){
+        var liveIncidents = (liveData.incidents || []).filter(function(i){ return i.providerId === p.id && !i.resolvedAt; });
+        if (liveIncidents.length){
+          incidentHtml = '<div class="incident-note"><span>&#9650;</span><span>' + liveIncidents[0].title + '</span></div>';
+        }
+      } else if (p.incident && state.range === '24h'){
         var isResolved = p.incident.severity === 'resolved';
         incidentHtml = '<div class="incident-note' + (isResolved ? ' resolved' : '') + '">' +
           '<span>' + (isResolved ? '●' : '▲') + '</span><span>' + p.incident.text + '</span></div>';
       }
 
       var colorVar = m.status === 'good' ? '--good' : m.status === 'warn' ? '--warn' : '--bad';
+      var uptimeSub = m.liveUptime && m.uptimeSamples < 20
+        ? '<span class="sub"> n=' + m.uptimeSamples + '</span>' : '';
+      var errorsCell = isLive()
+        ? '<span class="v dim" title="Not available from status pages yet — Phase 2 adds active probing">&mdash;</span>'
+        : '<span class="v">' + fmtPct(m.error) + '</span>';
+      var metricLabel = 'Time to first token &middot; p50' + (isLive() ? ' <span class="live-tag">(mock)</span>' : '');
 
       card.innerHTML =
         '<div class="stripe ' + m.status + '"></div>' +
@@ -579,13 +639,13 @@
             '<div><div class="provider-name">' + p.name + '</div><div class="provider-model">' + p.model + '</div></div>' +
             '<span class="status-pill ' + m.status + '"><span class="dot ' + m.status + '"></span>' + statusLabel(m.status) + '</span>' +
           '</div>' +
-          '<div class="metric-label">Time to first token &middot; p50</div>' +
+          '<div class="metric-label">' + metricLabel + '</div>' +
           '<div class="metric-row"><span class="metric-big">' + m.p50 + '</span><span class="metric-unit">ms</span></div>' +
           '<div class="p95-note">p95 <b>' + m.p95 + 'ms</b> &middot; ' + rangeCfg.label + ' trend</div>' +
           '<canvas class="spark" data-color="' + colorVar + '"></canvas>' +
           '<div class="stat-strip">' +
-            '<div class="stat"><span class="k">Uptime</span><span class="v">' + fmtPct(m.uptime) + '</span></div>' +
-            '<div class="stat"><span class="k">Errors</span><span class="v">' + fmtPct(m.error) + '</span></div>' +
+            '<div class="stat"><span class="k">Uptime</span><span class="v">' + fmtPct(m.uptime) + '</span>' + uptimeSub + '</div>' +
+            '<div class="stat"><span class="k">Errors</span>' + errorsCell + '</div>' +
             '<div class="stat"><span class="k">Score</span><span class="v">' + scoreById[p.id] + '</span></div>' +
           '</div>' +
           incidentHtml +
@@ -597,7 +657,7 @@
       drawSpark(canvas, data, canvas.getAttribute('data-color'));
     });
 
-    var goodCount = PROVIDERS.filter(function(p){ return p.byRange[state.range].status === 'good'; }).length;
+    var goodCount = PROVIDERS.filter(function(p){ return effectiveMetrics(p, state.range).status === 'good'; }).length;
     document.getElementById('overallChip').innerHTML =
       '<span class="dot ' + (goodCount === PROVIDERS.length ? 'good' : 'warn') + '"></span>' +
       goodCount + ' / ' + PROVIDERS.length + ' operational';
@@ -611,9 +671,9 @@
 
     scored.forEach(function(row, idx){
       var p = row.p, m = row.m;
-      var hasOpenIncident = p.incident && p.incident.severity === 'open' && state.range === '24h';
+      var openIncident = hasOpenIncident(p);
       var badge = '';
-      if (hasOpenIncident){
+      if (openIncident){
         badge = '<span class="rank-badge avoid">Avoid</span>';
       } else if (idx === 0){
         badge = '<span class="rank-badge primary">Primary</span>';
@@ -622,14 +682,16 @@
       }
 
       var reason;
-      if (hasOpenIncident){
-        reason = 'Open incident in range — held back until resolved, regardless of score.';
+      if (openIncident){
+        reason = 'Open incident' + (isLive() ? '' : ' in range') + ' — held back until resolved, regardless of score.';
       } else if (idx === 0){
-        reason = fmtPct(m.uptime) + ' uptime, ' + fmtPct(m.error) + ' errors, ' + m.p50 + 'ms p50 — top score at current weights.';
+        reason = isLive()
+          ? fmtPct(m.uptime) + ' observed uptime' + (m.uptimeSamples ? ' (' + m.uptimeSamples + ' polls)' : '') + ' — top score right now.'
+          : fmtPct(m.uptime) + ' uptime, ' + fmtPct(m.error) + ' errors, ' + m.p50 + 'ms p50 — top score at current weights.';
       } else if (idx === 1){
         reason = 'Within ' + (maxScore - row.score) + ' pts of the top score — close enough for automatic failover.';
       } else {
-        reason = 'Solid metrics, not top-ranked at current weights.';
+        reason = isLive() ? 'Solid uptime, not top-ranked right now.' : 'Solid metrics, not top-ranked at current weights.';
       }
 
       var li = document.createElement('li');
@@ -648,7 +710,27 @@
   function renderIncidents(){
     var list = document.getElementById('incidentList');
     list.innerHTML = '';
-    INCIDENTS.forEach(function(item){
+
+    var items = isLive()
+      ? (liveData.incidents || []).map(function(i){
+          return {
+            provider: i.providerName,
+            sev: i.resolvedAt ? 'info' : (/major|critical/i.test(i.severity || '') ? 'bad' : 'warn'),
+            time: new Date(i.startedAt || i.seenAt).toUTCString().replace(':00 GMT', ' UTC').replace(/^\w+, /, ''),
+            text: i.title + (i.resolvedAt ? ' — resolved.' : ' — ongoing.')
+          };
+        })
+      : INCIDENTS;
+
+    if (!items.length){
+      var li = document.createElement('li');
+      li.className = 'incident-item';
+      li.innerHTML = '<span class="dot good"></span><div class="incident-body"><div class="incident-desc">No incidents recorded yet.</div></div>';
+      list.appendChild(li);
+      return;
+    }
+
+    items.forEach(function(item){
       var li = document.createElement('li');
       li.className = 'incident-item';
       li.innerHTML =
@@ -661,7 +743,51 @@
     });
   }
 
-  function renderAll(){ renderCards(); renderRanking(); }
+  function updateChrome(){
+    var stamp = document.getElementById('updatedStamp');
+    var badge = document.getElementById('dataSourceBadge');
+    var footnoteMain = document.getElementById('footnoteMain');
+    var footnoteNext = document.getElementById('footnoteNext');
+    var rankingSub = document.getElementById('rankingSub');
+
+    if (isLive()){
+      var d = new Date(liveData.generatedAt);
+      stamp.textContent = 'Polled ' + d.toUTCString().replace(':00 GMT', ' UTC').replace(/^\w+, /, '');
+      badge.textContent = 'Live — status pages, every 15 min';
+      badge.style.color = 'var(--good)'; badge.style.borderColor = 'var(--good)'; badge.style.background = 'var(--good-bg)';
+      footnoteMain.textContent = 'Status, uptime, and incidents are polled live from provider status pages every 15 minutes.';
+      footnoteNext.innerHTML = 'Latency &amp; error rate are still mock — Phase 2 adds active probing.';
+      rankingSub.textContent = 'Live mode ranks by observed uptime plus the incident override below — latency/error weights sit out until Phase 2 adds real probing.';
+    } else {
+      stamp.textContent = 'Updated Aug 5, 2026 · 14:32 UTC';
+      badge.textContent = 'Sample data — design review';
+      badge.style.color = ''; badge.style.borderColor = ''; badge.style.background = '';
+      footnoteMain.textContent = 'Ranking recomputes client-side from the metrics shown — nothing here is fetched live yet.';
+      footnoteNext.innerHTML = 'Next: wire <code>/status</code> pollers + provider API probes.';
+      rankingSub.textContent = 'Score blends latency, uptime, and error rate at the weights below. Providers with an open incident are held back regardless of score.';
+    }
+
+    document.querySelectorAll('.weight').forEach(function(w){
+      var key = w.getAttribute('data-weight');
+      var inactive = isLive() && key !== 'uptime';
+      w.classList.toggle('inactive', inactive);
+      w.querySelector('input').disabled = inactive;
+    });
+  }
+
+  function renderAll(){ updateChrome(); renderCards(); renderRanking(); }
+
+  function loadLiveData(){
+    if (typeof fetch !== 'function') return;
+    fetch('data/latest.json', { cache: 'no-store' })
+      .then(function(res){ return res.ok ? res.json() : Promise.reject(new Error('HTTP ' + res.status)); })
+      .then(function(json){
+        liveData = json;
+        renderIncidents();
+        renderAll();
+      })
+      .catch(function(){ /* offline, file://, or CSP-blocked preview — sample data stays active */ });
+  }
 
   document.querySelectorAll('.range-toggle button').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -674,6 +800,7 @@
 
   document.querySelectorAll('.weight input[type="range"]').forEach(function(input){
     input.addEventListener('input', function(){
+      if (isLive() && input.closest('.weight').getAttribute('data-weight') !== 'uptime') return;
       var key = input.closest('.weight').getAttribute('data-weight');
       state.weights[key] = parseInt(input.value, 10);
       var total = state.weights.latency + state.weights.uptime + state.weights.error || 1;
@@ -688,6 +815,7 @@
 
   renderIncidents();
   renderAll();
+  loadLiveData();
   window.addEventListener('resize', renderCards);
 })();
 </script>
