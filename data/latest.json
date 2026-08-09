@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T14:54:19.826Z",
+  "generatedAt": "2026-08-09T15:37:40.906Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -16,14 +16,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -38,14 +38,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 28
         },
         "7d": {
-          "pct": 24.29,
-          "sampleCount": 70
+          "pct": 23.94,
+          "sampleCount": 71
         },
         "30d": {
-          "pct": 24.29,
-          "sampleCount": 70
+          "pct": 23.94,
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     },
     "google": {
       "name": "Google",
@@ -126,17 +126,26 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 70
+          "sampleCount": 71
         }
       },
-      "lastPolled": "2026-08-09T14:54:19.826Z"
+      "lastPolled": "2026-08-09T15:37:40.906Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Completion API Degraded - mistral-medium-2505",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-09T15:35:24.836Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-09T15:37:40.906Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
