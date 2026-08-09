@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T15:37:40.906Z",
+  "generatedAt": "2026-08-09T16:12:59.037Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -16,14 +16,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -38,14 +38,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 28
         },
         "7d": {
-          "pct": 23.94,
-          "sampleCount": 71
+          "pct": 23.61,
+          "sampleCount": 72
         },
         "30d": {
-          "pct": 23.94,
-          "sampleCount": 71
+          "pct": 23.61,
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     },
     "google": {
       "name": "Google",
@@ -126,17 +126,26 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 71
+          "sampleCount": 72
         }
       },
-      "lastPolled": "2026-08-09T15:37:40.906Z"
+      "lastPolled": "2026-08-09T16:12:59.037Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Conversations API Degraded",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-09T15:41:41.557Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-09T16:12:59.037Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
