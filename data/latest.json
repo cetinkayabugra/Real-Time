@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T14:07:26.434Z",
+  "generatedAt": "2026-08-12T15:16:33.485Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -11,19 +11,19 @@
       "note": "Partially Degraded Service",
       "uptime": {
         "24h": {
-          "pct": 94.74,
+          "pct": 89.47,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 99.24,
-          "sampleCount": 131
+          "pct": 98.48,
+          "sampleCount": 132
         },
         "30d": {
-          "pct": 99.24,
-          "sampleCount": 131
+          "pct": 98.48,
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -33,41 +33,41 @@
       "note": "All Systems Operational",
       "uptime": {
         "24h": {
-          "pct": 94.74,
+          "pct": 100,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 88.55,
-          "sampleCount": 131
+          "pct": 88.64,
+          "sampleCount": 132
         },
         "30d": {
-          "pct": 88.55,
-          "sampleCount": 131
+          "pct": 88.64,
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     },
     "mistral": {
       "name": "Mistral AI",
       "model": "Large 3 family",
-      "status": "bad",
+      "status": "warn",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 94.74,
+          "pct": 89.47,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 38.17,
-          "sampleCount": 131
+          "pct": 37.88,
+          "sampleCount": 132
         },
         "30d": {
-          "pct": 38.17,
-          "sampleCount": 131
+          "pct": 37.88,
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     },
     "google": {
       "name": "Google",
@@ -126,17 +126,26 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 131
+          "sampleCount": 132
         }
       },
-      "lastPolled": "2026-08-12T14:07:26.434Z"
+      "lastPolled": "2026-08-12T15:16:33.485Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Embedding API Degraded",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-12T14:16:05.353Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-12T15:16:33.485Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
