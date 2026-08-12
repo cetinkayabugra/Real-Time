@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-08-12T12:34:27.990Z",
+  "generatedAt": "2026-08-12T14:07:26.434Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
     "anthropic": {
       "name": "Anthropic",
       "model": "Claude 4.5 family",
-      "status": "good",
+      "status": "warn",
       "stale": false,
-      "note": "All Systems Operational",
+      "note": "Partially Degraded Service",
       "uptime": {
         "24h": {
-          "pct": 100,
+          "pct": 94.74,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 100,
-          "sampleCount": 130
+          "pct": 99.24,
+          "sampleCount": 131
         },
         "30d": {
-          "pct": 100,
-          "sampleCount": 130
+          "pct": 99.24,
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -33,41 +33,41 @@
       "note": "All Systems Operational",
       "uptime": {
         "24h": {
-          "pct": 89.47,
+          "pct": 94.74,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 88.46,
-          "sampleCount": 130
+          "pct": 88.55,
+          "sampleCount": 131
         },
         "30d": {
-          "pct": 88.46,
-          "sampleCount": 130
+          "pct": 88.55,
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     },
     "mistral": {
       "name": "Mistral AI",
       "model": "Large 3 family",
-      "status": "good",
+      "status": "bad",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 100,
+          "pct": 94.74,
           "sampleCount": 19
         },
         "7d": {
-          "pct": 38.46,
-          "sampleCount": 130
+          "pct": 38.17,
+          "sampleCount": 131
         },
         "30d": {
-          "pct": 38.46,
-          "sampleCount": 130
+          "pct": 38.17,
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     },
     "google": {
       "name": "Google",
@@ -126,17 +126,26 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 130
+          "sampleCount": 131
         }
       },
-      "lastPolled": "2026-08-12T12:34:27.990Z"
+      "lastPolled": "2026-08-12T14:07:26.434Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Vibe Code Web: New Session Sandboxes Failing to Bootstrap",
+      "severity": "MAJOR",
+      "startedAt": "2026-08-12T12:47:18.322Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-12T14:07:26.434Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
