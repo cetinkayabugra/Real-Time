@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T05:39:33.042Z",
+  "generatedAt": "2026-08-17T06:21:04.522Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -19,11 +19,11 @@
           "sampleCount": 174
         },
         "30d": {
-          "pct": 94.98,
-          "sampleCount": 259
+          "pct": 95,
+          "sampleCount": 260
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -41,11 +41,11 @@
           "sampleCount": 179
         },
         "30d": {
-          "pct": 85.61,
-          "sampleCount": 264
+          "pct": 85.66,
+          "sampleCount": 265
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -63,11 +63,11 @@
           "sampleCount": 179
         },
         "30d": {
-          "pct": 18.94,
-          "sampleCount": 264
+          "pct": 18.87,
+          "sampleCount": 265
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -86,10 +86,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 264
+          "sampleCount": 265
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -108,10 +108,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 264
+          "sampleCount": 265
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     },
     "google": {
       "name": "Google",
@@ -130,10 +130,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 264
+          "sampleCount": 265
         }
       },
-      "lastPolled": "2026-08-17T05:39:33.042Z"
+      "lastPolled": "2026-08-17T06:21:04.522Z"
     }
   },
   "incidents": [
