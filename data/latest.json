@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T03:00:58.307Z",
+  "generatedAt": "2026-08-18T03:59:52.753Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -19,11 +19,11 @@
           "sampleCount": 186
         },
         "30d": {
-          "pct": 95.16,
-          "sampleCount": 289
+          "pct": 95.17,
+          "sampleCount": 290
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -41,11 +41,11 @@
           "sampleCount": 191
         },
         "30d": {
-          "pct": 87.07,
-          "sampleCount": 294
+          "pct": 87.12,
+          "sampleCount": 295
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -55,7 +55,7 @@
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 87.88,
+          "pct": 90.91,
           "sampleCount": 33
         },
         "7d": {
@@ -63,11 +63,11 @@
           "sampleCount": 191
         },
         "30d": {
-          "pct": 26.87,
-          "sampleCount": 294
+          "pct": 27.12,
+          "sampleCount": 295
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -86,10 +86,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 294
+          "sampleCount": 295
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -108,10 +108,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 294
+          "sampleCount": 295
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     },
     "google": {
       "name": "Google",
@@ -130,10 +130,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 294
+          "sampleCount": 295
         }
       },
-      "lastPolled": "2026-08-18T03:00:58.307Z"
+      "lastPolled": "2026-08-18T03:59:52.753Z"
     }
   },
   "incidents": [
