@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T04:53:19.289Z",
+  "generatedAt": "2026-08-19T05:36:02.459Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -15,15 +15,15 @@
           "sampleCount": 33
         },
         "7d": {
-          "pct": 91.5,
-          "sampleCount": 200
+          "pct": 91.54,
+          "sampleCount": 201
         },
         "30d": {
-          "pct": 94.75,
-          "sampleCount": 324
+          "pct": 94.77,
+          "sampleCount": 325
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -37,15 +37,15 @@
           "sampleCount": 33
         },
         "7d": {
-          "pct": 88.29,
-          "sampleCount": 205
+          "pct": 88.35,
+          "sampleCount": 206
         },
         "30d": {
-          "pct": 88.15,
-          "sampleCount": 329
+          "pct": 88.18,
+          "sampleCount": 330
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 33
         },
         "7d": {
-          "pct": 34.15,
-          "sampleCount": 205
+          "pct": 34.47,
+          "sampleCount": 206
         },
         "30d": {
-          "pct": 34.65,
-          "sampleCount": 329
+          "pct": 34.85,
+          "sampleCount": 330
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 205
+          "sampleCount": 206
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 329
+          "sampleCount": 330
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 205
+          "sampleCount": 206
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 329
+          "sampleCount": 330
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     },
     "google": {
       "name": "Google",
@@ -126,14 +126,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 205
+          "sampleCount": 206
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 329
+          "sampleCount": 330
         }
       },
-      "lastPolled": "2026-08-19T04:53:19.289Z"
+      "lastPolled": "2026-08-19T05:36:02.459Z"
     }
   },
   "incidents": [
