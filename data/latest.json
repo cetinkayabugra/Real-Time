@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T06:04:16.568Z",
+  "generatedAt": "2026-08-19T07:07:09.180Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -15,15 +15,15 @@
           "sampleCount": 33
         },
         "7d": {
-          "pct": 91.54,
-          "sampleCount": 201
+          "pct": 91.58,
+          "sampleCount": 202
         },
         "30d": {
-          "pct": 94.79,
-          "sampleCount": 326
+          "pct": 94.8,
+          "sampleCount": 327
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -37,37 +37,37 @@
           "sampleCount": 33
         },
         "7d": {
-          "pct": 88.35,
-          "sampleCount": 206
+          "pct": 88.41,
+          "sampleCount": 207
         },
         "30d": {
-          "pct": 88.22,
-          "sampleCount": 331
+          "pct": 88.25,
+          "sampleCount": 332
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     },
     "mistral": {
       "name": "Mistral AI",
       "model": "Large 3 family",
-      "status": "good",
+      "status": "warn",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 100,
+          "pct": 96.97,
           "sampleCount": 33
         },
         "7d": {
-          "pct": 34.47,
-          "sampleCount": 206
+          "pct": 34.3,
+          "sampleCount": 207
         },
         "30d": {
-          "pct": 35.05,
-          "sampleCount": 331
+          "pct": 34.94,
+          "sampleCount": 332
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 206
+          "sampleCount": 207
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 331
+          "sampleCount": 332
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 206
+          "sampleCount": 207
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 331
+          "sampleCount": 332
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     },
     "google": {
       "name": "Google",
@@ -126,17 +126,35 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 206
+          "sampleCount": 207
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 331
+          "sampleCount": 332
         }
       },
-      "lastPolled": "2026-08-19T06:04:16.568Z"
+      "lastPolled": "2026-08-19T07:07:09.180Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "AI Registry Prompts API Degraded",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-19T07:04:57.908Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-19T07:07:09.180Z"
+    },
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Integrations API Degraded",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-19T07:00:24.048Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-19T07:07:09.180Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
@@ -208,24 +226,6 @@
       "startedAt": "2026-08-07T15:36:56.487Z",
       "resolvedAt": null,
       "seenAt": "2026-08-07T16:04:32.499Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "Completion API Degraded - flux-quartz-bramble-otter",
-      "severity": "MINOR",
-      "startedAt": "2026-08-07T15:32:55.477Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-07T16:04:32.499Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "Completion API Degraded - flux-quartz-bramble-otter",
-      "severity": "MINOR",
-      "startedAt": "2026-08-07T14:54:09.272Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-07T14:59:19.009Z"
     }
   ],
   "errors": {}
