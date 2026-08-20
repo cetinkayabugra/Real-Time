@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T16:55:51.297Z",
+  "generatedAt": "2026-08-20T17:37:13.599Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -15,15 +15,15 @@
           "sampleCount": 32
         },
         "7d": {
-          "pct": 94.57,
+          "pct": 95.02,
           "sampleCount": 221
         },
         "30d": {
-          "pct": 95.16,
-          "sampleCount": 372
+          "pct": 95.17,
+          "sampleCount": 373
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -37,15 +37,15 @@
           "sampleCount": 32
         },
         "7d": {
-          "pct": 88.05,
+          "pct": 88.5,
           "sampleCount": 226
         },
         "30d": {
-          "pct": 88.59,
-          "sampleCount": 377
+          "pct": 88.62,
+          "sampleCount": 378
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 32
         },
         "7d": {
-          "pct": 47.79,
+          "pct": 48.23,
           "sampleCount": 226
         },
         "30d": {
-          "pct": 41.91,
-          "sampleCount": 377
+          "pct": 42.06,
+          "sampleCount": 378
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -86,10 +86,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 377
+          "sampleCount": 378
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -108,35 +108,44 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 377
+          "sampleCount": 378
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     },
     "google": {
       "name": "Google",
       "model": "Gemini 2.5 family",
-      "status": "good",
+      "status": "bad",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 100,
+          "pct": 96.88,
           "sampleCount": 32
         },
         "7d": {
-          "pct": 100,
+          "pct": 99.56,
           "sampleCount": 226
         },
         "30d": {
-          "pct": 100,
-          "sampleCount": 377
+          "pct": 99.74,
+          "sampleCount": 378
         }
       },
-      "lastPolled": "2026-08-20T16:55:51.297Z"
+      "lastPolled": "2026-08-20T17:37:13.599Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "google",
+      "providerName": "Google",
+      "title": "We are investigating an issue where customers may experience timeouts, service degradations, errors, and elevated latencies across multiple products in the us-west1 region.",
+      "severity": "high",
+      "startedAt": "2026-08-20T15:40:00+00:00",
+      "resolvedAt": null,
+      "seenAt": "2026-08-20T17:37:13.599Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
@@ -215,15 +224,6 @@
       "title": "AI Registry Prompts API Degraded",
       "severity": "MEDIUM",
       "startedAt": "2026-08-19T07:04:57.908Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-19T07:07:09.180Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "Integrations API Degraded",
-      "severity": "MEDIUM",
-      "startedAt": "2026-08-19T07:00:24.048Z",
       "resolvedAt": null,
       "seenAt": "2026-08-19T07:07:09.180Z"
     }
