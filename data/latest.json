@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T19:01:42.758Z",
+  "generatedAt": "2026-08-20T19:47:23.599Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -19,11 +19,11 @@
           "sampleCount": 222
         },
         "30d": {
-          "pct": 95.2,
-          "sampleCount": 375
+          "pct": 95.21,
+          "sampleCount": 376
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -37,15 +37,15 @@
           "sampleCount": 32
         },
         "7d": {
-          "pct": 88.99,
+          "pct": 89.43,
           "sampleCount": 227
         },
         "30d": {
-          "pct": 88.68,
-          "sampleCount": 380
+          "pct": 88.71,
+          "sampleCount": 381
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 32
         },
         "7d": {
-          "pct": 48.9,
+          "pct": 49.34,
           "sampleCount": 227
         },
         "30d": {
-          "pct": 42.37,
-          "sampleCount": 380
+          "pct": 42.52,
+          "sampleCount": 381
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -86,10 +86,10 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 380
+          "sampleCount": 381
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -108,15 +108,15 @@
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 380
+          "sampleCount": 381
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     },
     "google": {
       "name": "Google",
       "model": "Gemini 2.5 family",
-      "status": "bad",
+      "status": "good",
       "stale": false,
       "note": null,
       "uptime": {
@@ -130,10 +130,10 @@
         },
         "30d": {
           "pct": 99.21,
-          "sampleCount": 380
+          "sampleCount": 381
         }
       },
-      "lastPolled": "2026-08-20T19:01:42.758Z"
+      "lastPolled": "2026-08-20T19:47:23.599Z"
     }
   },
   "incidents": [
