@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T10:47:01.804Z",
+  "generatedAt": "2026-08-26T11:35:28.724Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -15,15 +15,15 @@
           "sampleCount": 29
         },
         "7d": {
-          "pct": 98.71,
-          "sampleCount": 232
+          "pct": 98.7,
+          "sampleCount": 231
         },
         "30d": {
-          "pct": 96.27,
-          "sampleCount": 563
+          "pct": 96.28,
+          "sampleCount": 564
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -37,37 +37,37 @@
           "sampleCount": 29
         },
         "7d": {
-          "pct": 97.41,
-          "sampleCount": 232
+          "pct": 97.4,
+          "sampleCount": 231
         },
         "30d": {
-          "pct": 92.08,
-          "sampleCount": 568
+          "pct": 92.09,
+          "sampleCount": 569
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     },
     "mistral": {
       "name": "Mistral AI",
       "model": "Large 3 family",
-      "status": "good",
+      "status": "bad",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 100,
+          "pct": 96.55,
           "sampleCount": 29
         },
         "7d": {
-          "pct": 99.14,
-          "sampleCount": 232
+          "pct": 98.7,
+          "sampleCount": 231
         },
         "30d": {
-          "pct": 61.44,
-          "sampleCount": 568
+          "pct": 61.34,
+          "sampleCount": 569
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -82,14 +82,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 232
+          "sampleCount": 231
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 568
+          "sampleCount": 569
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -104,14 +104,14 @@
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 232
+          "sampleCount": 231
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 568
+          "sampleCount": 569
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     },
     "google": {
       "name": "Google",
@@ -125,18 +125,27 @@
           "sampleCount": 29
         },
         "7d": {
-          "pct": 98.71,
-          "sampleCount": 232
+          "pct": 98.7,
+          "sampleCount": 231
         },
         "30d": {
           "pct": 99.47,
-          "sampleCount": 568
+          "sampleCount": 569
         }
       },
-      "lastPolled": "2026-08-26T10:47:01.804Z"
+      "lastPolled": "2026-08-26T11:35:28.724Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Vibe Code Web is unable to create sandboxes in new sessions",
+      "severity": "MAJOR",
+      "startedAt": "2026-08-26T11:05:14.471Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-26T11:35:28.724Z"
+    },
     {
       "providerId": "google",
       "providerName": "Google",
@@ -217,15 +226,6 @@
       "startedAt": "2026-08-19T07:40:21.911Z",
       "resolvedAt": null,
       "seenAt": "2026-08-19T07:55:21.039Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "AI Registry Prompts API Degraded",
-      "severity": "MEDIUM",
-      "startedAt": "2026-08-19T07:04:57.908Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-19T07:07:09.180Z"
     }
   ],
   "errors": {}
