@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T07:28:43.753Z",
+  "generatedAt": "2026-08-31T15:21:29.833Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -12,62 +12,62 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 7
+          "sampleCount": 6
         },
         "7d": {
-          "pct": 98.88,
-          "sampleCount": 89
+          "pct": 100,
+          "sampleCount": 81
         },
         "30d": {
-          "pct": 96.44,
-          "sampleCount": 590
+          "pct": 96.45,
+          "sampleCount": 591
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     },
     "openai": {
       "name": "OpenAI",
       "model": "GPT-5.1 family",
-      "status": "good",
+      "status": "bad",
       "stale": false,
-      "note": "All Systems Operational",
+      "note": "Partial System Outage",
       "uptime": {
         "24h": {
-          "pct": 100,
-          "sampleCount": 7
+          "pct": 83.33,
+          "sampleCount": 6
         },
         "7d": {
-          "pct": 100,
-          "sampleCount": 89
+          "pct": 98.77,
+          "sampleCount": 81
         },
         "30d": {
-          "pct": 92.44,
-          "sampleCount": 595
+          "pct": 92.28,
+          "sampleCount": 596
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     },
     "mistral": {
       "name": "Mistral AI",
       "model": "Large 3 family",
-      "status": "good",
+      "status": "warn",
       "stale": false,
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 100,
-          "sampleCount": 7
+          "pct": 83.33,
+          "sampleCount": 6
         },
         "7d": {
-          "pct": 98.88,
-          "sampleCount": 89
+          "pct": 97.53,
+          "sampleCount": 81
         },
         "30d": {
-          "pct": 63.03,
-          "sampleCount": 595
+          "pct": 62.92,
+          "sampleCount": 596
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -78,18 +78,18 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 7
+          "sampleCount": 6
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 89
+          "sampleCount": 81
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 595
+          "sampleCount": 596
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -100,18 +100,18 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 7
+          "sampleCount": 6
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 89
+          "sampleCount": 81
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 595
+          "sampleCount": 596
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     },
     "google": {
       "name": "Google",
@@ -122,21 +122,30 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 7
+          "sampleCount": 6
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 89
+          "sampleCount": 81
         },
         "30d": {
           "pct": 99.5,
-          "sampleCount": 595
+          "sampleCount": 596
         }
       },
-      "lastPolled": "2026-08-31T07:28:43.753Z"
+      "lastPolled": "2026-08-31T15:21:29.833Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Vibe Code Web is failing to provision a sandbox in new sessions ",
+      "severity": "MEDIUM",
+      "startedAt": "2026-08-31T12:11:12.213Z",
+      "resolvedAt": null,
+      "seenAt": "2026-08-31T15:21:29.833Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
@@ -215,15 +224,6 @@
       "title": "Files API Degraded",
       "severity": "MEDIUM",
       "startedAt": "2026-08-19T07:46:14.180Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-19T07:55:21.039Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "Integrations API Degraded",
-      "severity": "MEDIUM",
-      "startedAt": "2026-08-19T07:40:21.911Z",
       "resolvedAt": null,
       "seenAt": "2026-08-19T07:55:21.039Z"
     }
