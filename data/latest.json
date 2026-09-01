@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-09-01T21:23:24.407Z",
+  "generatedAt": "2026-09-01T23:30:19.413Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
     "anthropic": {
       "name": "Anthropic",
       "model": "Claude 4.5 family",
-      "status": "good",
+      "status": "warn",
       "stale": false,
-      "note": "All Systems Operational",
+      "note": "Partially Degraded Service",
       "uptime": {
         "24h": {
-          "pct": 100,
-          "sampleCount": 6
+          "pct": 85.71,
+          "sampleCount": 7
         },
         "7d": {
-          "pct": 100,
-          "sampleCount": 51
+          "pct": 97.92,
+          "sampleCount": 48
         },
         "30d": {
-          "pct": 96.49,
-          "sampleCount": 598
+          "pct": 96.33,
+          "sampleCount": 599
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -33,19 +33,19 @@
       "note": "All Systems Operational",
       "uptime": {
         "24h": {
-          "pct": 16.67,
-          "sampleCount": 6
+          "pct": 28.57,
+          "sampleCount": 7
         },
         "7d": {
-          "pct": 88.24,
-          "sampleCount": 51
+          "pct": 87.5,
+          "sampleCount": 48
         },
         "30d": {
-          "pct": 91.54,
-          "sampleCount": 603
+          "pct": 91.56,
+          "sampleCount": 604
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -55,19 +55,19 @@
       "note": null,
       "uptime": {
         "24h": {
-          "pct": 83.33,
-          "sampleCount": 6
+          "pct": 85.71,
+          "sampleCount": 7
         },
         "7d": {
-          "pct": 94.12,
-          "sampleCount": 51
+          "pct": 93.75,
+          "sampleCount": 48
         },
         "30d": {
-          "pct": 63.18,
-          "sampleCount": 603
+          "pct": 63.25,
+          "sampleCount": 604
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -78,18 +78,18 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 6
+          "sampleCount": 7
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 51
+          "sampleCount": 48
         },
         "30d": {
           "pct": 100,
-          "sampleCount": 603
+          "sampleCount": 604
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -99,19 +99,19 @@
       "note": "All Systems Operational",
       "uptime": {
         "24h": {
-          "pct": 83.33,
-          "sampleCount": 6
+          "pct": 85.71,
+          "sampleCount": 7
         },
         "7d": {
-          "pct": 98.04,
-          "sampleCount": 51
+          "pct": 97.92,
+          "sampleCount": 48
         },
         "30d": {
           "pct": 99.83,
-          "sampleCount": 603
+          "sampleCount": 604
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     },
     "google": {
       "name": "Google",
@@ -122,18 +122,18 @@
       "uptime": {
         "24h": {
           "pct": 100,
-          "sampleCount": 6
+          "sampleCount": 7
         },
         "7d": {
           "pct": 100,
-          "sampleCount": 51
+          "sampleCount": 48
         },
         "30d": {
           "pct": 99.5,
-          "sampleCount": 603
+          "sampleCount": 604
         }
       },
-      "lastPolled": "2026-09-01T21:23:24.407Z"
+      "lastPolled": "2026-09-01T23:30:19.413Z"
     }
   },
   "incidents": [
