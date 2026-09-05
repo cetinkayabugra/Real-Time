@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T00:51:46.500Z",
+  "generatedAt": "2026-09-05T05:30:13.110Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -23,7 +23,7 @@
           "sampleCount": 619
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -45,7 +45,7 @@
           "sampleCount": 624
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 8
         },
         "7d": {
-          "pct": 82.22,
+          "pct": 80,
           "sampleCount": 45
         },
         "30d": {
-          "pct": 63.46,
+          "pct": 63.3,
           "sampleCount": 624
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -89,7 +89,7 @@
           "sampleCount": 624
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -111,7 +111,7 @@
           "sampleCount": 624
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     },
     "google": {
       "name": "Google",
@@ -133,10 +133,19 @@
           "sampleCount": 624
         }
       },
-      "lastPolled": "2026-09-05T00:51:46.500Z"
+      "lastPolled": "2026-09-05T05:30:13.110Z"
     }
   },
   "incidents": [
+    {
+      "providerId": "mistral",
+      "providerName": "Mistral AI",
+      "title": "Degraded OCR 4.1 Availability",
+      "severity": "MEDIUM",
+      "startedAt": "2026-09-04T22:00:00.000Z",
+      "resolvedAt": null,
+      "seenAt": "2026-09-05T05:30:13.110Z"
+    },
     {
       "providerId": "mistral",
       "providerName": "Mistral AI",
@@ -217,15 +226,6 @@
       "startedAt": "2026-08-19T23:31:01.722Z",
       "resolvedAt": null,
       "seenAt": "2026-08-19T23:39:32.500Z"
-    },
-    {
-      "providerId": "mistral",
-      "providerName": "Mistral AI",
-      "title": "Conversations API Degraded",
-      "severity": "MEDIUM",
-      "startedAt": "2026-08-19T07:54:36.948Z",
-      "resolvedAt": null,
-      "seenAt": "2026-08-19T07:55:21.039Z"
     }
   ],
   "errors": {}
