@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T12:58:21.271Z",
+  "generatedAt": "2026-09-05T15:57:59.798Z",
   "source": "status-page-polling-phase-1",
   "note": "Status, uptime %, and incidents are real (polled every 15 min). Latency and error-rate are not available from status pages — see docs/polling-integration-scope.md Phase 2.",
   "providers": {
@@ -23,7 +23,7 @@
           "sampleCount": 618
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     },
     "openai": {
       "name": "OpenAI",
@@ -45,7 +45,7 @@
           "sampleCount": 623
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     },
     "mistral": {
       "name": "Mistral AI",
@@ -59,15 +59,15 @@
           "sampleCount": 8
         },
         "7d": {
-          "pct": 76.09,
+          "pct": 73.91,
           "sampleCount": 46
         },
         "30d": {
-          "pct": 62.92,
+          "pct": 62.76,
           "sampleCount": 623
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     },
     "bedrock": {
       "name": "Amazon Bedrock",
@@ -89,7 +89,7 @@
           "sampleCount": 623
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     },
     "cohere": {
       "name": "Cohere",
@@ -111,7 +111,7 @@
           "sampleCount": 623
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     },
     "google": {
       "name": "Google",
@@ -133,7 +133,7 @@
           "sampleCount": 623
         }
       },
-      "lastPolled": "2026-09-05T12:58:21.271Z"
+      "lastPolled": "2026-09-05T15:57:59.798Z"
     }
   },
   "incidents": [
